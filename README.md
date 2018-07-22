@@ -1,4 +1,4 @@
-# Online-Judge with Interactive Tools for Learning-Java Programming Language
+# Online Judge with Interactive Tools for Learning-Java Programming Language
 
 Web application that uses an open source online judge and interactive tool for learning Java Programming Language.
 

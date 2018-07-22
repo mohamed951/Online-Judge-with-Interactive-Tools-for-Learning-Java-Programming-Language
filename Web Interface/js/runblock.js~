@@ -1,0 +1,23 @@
+Blockly.JavaScript['move'] = function (block, spaces) {
+   var ret = "OUTPUT += '"+block.getFieldValue("Type")+"-' ; \n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret +=  Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+var index=0;	
+Blockly.JavaScript['repeat'] = function (block, spaces){
+	var ret = spaces + "for(var i"+index+"=0;i"+index+"<";
+	ret += Blockly.JavaScript.valueToCode(block, "Number", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+  	ret +=  ";i"+index+++"++){\n";
+	var x = block.getInputTargetBlock("statment");
+	ret += Blockly.JavaScript[x.type](x, spaces);
+	ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += Blockly.JavaScript[next.type](next, spaces);
+    }
+	return ret;
+};
+

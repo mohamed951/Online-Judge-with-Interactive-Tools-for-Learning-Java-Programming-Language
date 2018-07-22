@@ -1,0 +1,54 @@
+ public class run {
+    public static void main (String [ ] args)  {
+        
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Down");
+        System.out.println("Down");
+        
+   }
+ }
+
+
+ public class run {
+    public static void main (String [ ] args)  {
+        
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Down");
+        System.out.println("Down");
+        System.out.println("Left");
+        System.out.println("Down");
+        System.out.println("Down");
+        System.out.println("Right");
+   }
+ }
+
+ public class run {
+    public static void main (String [ ] args)  {
+        
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Down");
+        System.out.println("Down");
+        System.out.println("Left");
+        System.out.println("Down");
+        System.out.println("Down");
+        System.out.println("Left");
+        System.out.println("Left");
+        System.out.println("Left");
+        System.out.println("Up");
+        System.out.println("Up");
+        System.out.println("Down");
+        System.out.println("Down");
+      System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+        System.out.println("Right");
+   }
+ }

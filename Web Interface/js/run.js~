@@ -1,0 +1,1286 @@
+Blockly.JavaScript.ORDER_ATOMIC = 0;
+Blockly.JavaScript.ORDER_MEMBER = 1;
+Blockly.JavaScript.ORDER_NEW = 1;
+Blockly.JavaScript.ORDER_FUNCTION_CALL = 2;
+Blockly.JavaScript.ORDER_INCREMENT = 3;
+Blockly.JavaScript.ORDER_DECREMENT = 3;
+Blockly.JavaScript.ORDER_LOGICAL_NOT = 4;
+Blockly.JavaScript.ORDER_BITWISE_NOT = 4;
+Blockly.JavaScript.ORDER_UNARY_PLUS = 4;
+Blockly.JavaScript.ORDER_UNARY_NEGATION = 4;
+Blockly.JavaScript.ORDER_TYPEOF = 4;
+Blockly.JavaScript.ORDER_VOID = 4;
+Blockly.JavaScript.ORDER_DELETE = 4;
+Blockly.JavaScript.ORDER_MULTIPLICATION = 5;
+Blockly.JavaScript.ORDER_DIVISION = 5;
+Blockly.JavaScript.ORDER_MODULUS = 5;
+Blockly.JavaScript.ORDER_ADDITION = 6;
+Blockly.JavaScript.ORDER_SUBTRACTION = 6;
+Blockly.JavaScript.ORDER_BITWISE_SHIFT = 7;
+Blockly.JavaScript.ORDER_RELATIONAL = 8;
+Blockly.JavaScript.ORDER_IN = 8;
+Blockly.JavaScript.ORDER_INSTANCEOF = 8;
+Blockly.JavaScript.ORDER_EQUALITY = 9;
+Blockly.JavaScript.ORDER_BITWISE_AND = 10;
+Blockly.JavaScript.ORDER_BITWISE_XOR = 11;
+Blockly.JavaScript.ORDER_BITWISE_OR = 12;
+Blockly.JavaScript.ORDER_LOGICAL_AND = 13;
+Blockly.JavaScript.ORDER_LOGICAL_OR = 14;
+Blockly.JavaScript.ORDER_CONDITIONAL = 15;
+Blockly.JavaScript.ORDER_ASSIGNMENT = 16;
+Blockly.JavaScript.ORDER_COMMA = 17;
+Blockly.JavaScript.ORDER_NONE = 99;
+var Nested = {};
+Nested['for_loop'] = 1, Nested['main_class'] = 1;
+var InputBlock = {};
+InputBlock["For_Initialization"] = 1, InputBlock["For_Condition"] = 1, InputBlock["For_Iteration"] = 1, InputBlock["for_initialization_value"] = 1, InputBlock["condition_block"] = 1, InputBlock["for_iteration2"] = 1, InputBlock["for_iteration"] = 1;
+
+Blockly.JavaScript['set_number'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("Type");
+    ret += " ";
+    ret += block.getFieldValue("Name");
+    ret += " = ";
+    //ret += Blockly.JavaScript.valueToCode(block, "Number", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+    var inblc1 = block.getInputTargetBlock("Number");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+
+    ret += ";\n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+Blockly.JavaScript['set_number2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("Type");
+    ret += " ";
+    ret += block.getFieldValue("Name");
+    ret += ";\n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+Blockly.JavaScript['condition_block'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("value1");
+    ret += " ";
+    ret += block.getFieldValue("operation");
+    ret += " ";
+    ret += block.getFieldValue("value2");
+    return ret;
+};
+
+Blockly.JavaScript['condition_block2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("value1");
+    ret += " ";
+    ret += block.getFieldValue("operation");
+    ret += " ";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    return ret;
+};
+
+Blockly.JavaScript['for_loop'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "for(";
+    var inblc1 = block.getInputTargetBlock("For_Initialization");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += " ; ";
+
+    var inblc2 = block.getInputTargetBlock("For_Condition");
+    if (inblc2 != null) {
+        ret += Blockly.JavaScript[inblc2.type](inblc2, "");
+    }
+
+    ret += " ; ";
+
+
+    var inblc3 = block.getInputTargetBlock("For_Iteration");
+    if (inblc3 != null) {
+        ret += Blockly.JavaScript[inblc3.type](inblc3, "");
+    }
+
+    /*var intialize_block = block.getInputTargetBlock("For_Initialization");
+    var condition_block = block.getInputTargetBlock("For_Condition");
+    var iteration_block = block.getInputTargetBlock("For_Iteration");
+    ret += intialize_block.getFieldValue("Type");
+    ret += " ";
+    ret += intialize_block.getFieldValue("Initialization");
+    ret += " = ";
+    ret += Blockly.JavaScript.valueToCode(intialize_block, "Number", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+    ret += " ; ";
+    ret += condition_block.getFieldValue("value1");
+    ret += " ";
+    ret += condition_block.getFieldValue("operation");
+    ret += " ";
+    ret += condition_block.getFieldValue("value2");
+    ret += "; ";
+    if (iteration_block.type == "for_iteration") {
+        ret += iteration_block.getFieldValue("variable");
+        ret += " ";
+        ret += iteration_block.getFieldValue("iteration");
+    } else if (iteration_block.type == "for_iteration2") {
+        ret += iteration_block.getFieldValue("value1");
+        ret += " ";
+        ret += iteration_block.getFieldValue("operation");
+        ret += "= ";
+        ret += iteration_block.getFieldValue("value2");
+    }
+    */
+
+    ret += ") {\n";
+
+    var inblc = block.getInputTargetBlock("For_Container");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+    ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+
+};
+
+Blockly.JavaScript['for_iteration'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("variable");
+    ret += " ";
+    ret += block.getFieldValue("iteration");
+
+    return ret;
+};
+
+Blockly.JavaScript['for_iteration2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("value1");
+    ret += " ";
+    ret += block.getFieldValue("operation");
+    ret += "= ";
+    ret += block.getFieldValue("value2");
+
+    return ret;
+};
+
+Blockly.JavaScript['for_initialization_value'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("Type");
+    ret += " ";
+    ret += block.getFieldValue("Initialization");
+    ret += " = ";
+
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    return ret;
+}
+
+Blockly.JavaScript['do_while'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "do {\n";
+    var condition_block = block.getInputTargetBlock("condition");
+    var inblc = block.getInputTargetBlock("container");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+    ret += spaces + "} while(";
+    var inblc1 = block.getInputTargetBlock("condition");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+
+    /*
+    if (condition_block != null) {
+        ret += condition_block.getFieldValue("value1");
+        ret += " ";
+        ret += condition_block.getFieldValue("operation");
+        ret += " ";
+        ret += condition_block.getFieldValue("value2");
+    }
+    */
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+
+};
+
+Blockly.JavaScript['while_loop'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "while(";
+    var condition_block = block.getInputTargetBlock("condition");
+    if (condition_block != null) {
+        ret += Blockly.JavaScript[condition_block.type](condition_block, "");
+    }
+    /*
+    if (condition_block != null) {
+        ret += condition_block.getFieldValue("value1");
+        ret += " ";
+        ret += condition_block.getFieldValue("operation");
+        ret += " ";
+        ret += condition_block.getFieldValue("value2");
+    }
+    */
+    ret += "){\n";
+
+    var inblc = block.getInputTargetBlock("container");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+
+    /*var children = block.getChildren();
+    for (var i = 0; i < children.length; i++) {
+        if (InputBlock[children[i].type] != 1) {
+            if (block.getNextBlock() == null || (children[i].id != block.getNextBlock().id)) {
+                ret += spaces + "  " + Blockly.JavaScript[children[i].type](children[i], spaces + "  ");
+            }
+        }
+    }*/
+
+    ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['main_class'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var className = block.getFieldValue('class_name');
+    var ret = "public class Main {\n";
+
+    var inblc = block.getInputTargetBlock("NAME");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+    /*
+    if (children.length != 0) {
+        ret += spaces + Blockly.JavaScript[children[0].type](children[0], spaces + "  ");
+    }
+    */
+    ret += spaces + "}\n";
+    return ret;
+};
+
+Blockly.JavaScript['main_method'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "public static void main (String [ ] args)  {\n";
+    var inblc = block.getInputTargetBlock("NAME");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+    /* 
+    for (var i = 0; i < children.length; i++) {
+         if (block.getNextBlock() == null || (children[i].id != block.getNextBlock().id))
+             ret += addSpaces + Blockly.JavaScript[children[i].type](children[i], addSpaces);
+     }
+     
+     */
+
+
+    ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+
+    return ret;
+
+};
+
+Blockly.JavaScript['print'] = function (block, spaces) {
+    var ret = "System.out.";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var print_value = block.getInputTargetBlock("NAME2");
+    if (print_value != null) {
+        ret += Blockly.JavaScript[print_value.type](print_value, "");
+    }
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['switch'] = function (block, spaces) {
+
+    var n = 0;
+    var code = '',
+        branchCode = "",
+        newSpaces = "  ",
+        addSpaces = spaces + "  ",
+        conditionCode = "";
+    do {
+        //conditionCode = Blockly.JavaScript.valueToCode(block, 'condition_S' + n, Blockly.JavaScript.ORDER_ATOMIC) || 'false';
+
+        /* = block.getInputTargetBlock("condition_S" + n);*/
+        var inblc1 = block.getInputTargetBlock("condition_S" + n);
+        if (inblc1 != null) {
+            conditionCode = Blockly.JavaScript[inblc1.type](inblc1, "");
+        }
+
+
+        // branchCode = Blockly.JavaScript.statementToCode(block, 'statement_S' + n);
+        var statement_block = block.getInputTargetBlock('statement_S' + n);
+        if (statement_block != null) {
+            branchCode = addSpaces + Blockly.JavaScript[statement_block.type](statement_block, spaces + newSpaces);
+        }
+        if (n > 0)
+            code += "";
+        code += 'case ' + conditionCode + ':\n';
+        if (branchCode != null)
+            code += branchCode + spaces;
+        ++n;
+        branchCode = "", conditionCode = "";
+    }
+    while (block.getInput('condition_S' + n));
+
+    if (block.getInput('Default_S2')) {
+        var default_block = block.getInputTargetBlock('Default_S2');
+        if (default_block != null)
+            var branchCode = Blockly.JavaScript[default_block.type](default_block, spaces + newSpaces);
+        code += 'default :\n' + spaces + newSpaces + branchCode + newSpaces;
+
+    }
+
+    return code + '\n';
+
+};
+
+Blockly.JavaScript['if'] = function (block, spaces) {
+    // If/elseif/else condition.
+    var n = 0;
+    var ret = '',
+        branchCode = "",
+        newSpaces = "  ",
+        addSpaces = spaces + "  ",
+        conditionCode = "";
+    do {
+
+        var condition_block = block.getInputTargetBlock("condition_if" + n);
+
+        if (condition_block != null) {
+            /*conditionCode += condition_block.getFieldValue("value1");
+            conditionCode += " ";
+            conditionCode += condition_block.getFieldValue("operation");
+            conditionCode += " ";
+            conditionCode += condition_block.getFieldValue("value2");
+            */
+            var inblc1 = block.getInputTargetBlock("condition_if" + n);
+            if (inblc1 != null) {
+                conditionCode += Blockly.JavaScript[inblc1.type](inblc1, "");
+            }
+        }
+
+
+        var statement_block = block.getInputTargetBlock('statement_if' + n);
+        if (statement_block != null) {
+            branchCode = newSpaces + Blockly.JavaScript[statement_block.type](statement_block, spaces + newSpaces);
+        }
+
+        if (n == 0)
+            ret += 'if(' + conditionCode + '){\n';
+        else ret += 'else if(' + conditionCode + '){\n';
+
+        if (branchCode != null)
+            ret += spaces + branchCode + "\n" + spaces + "}";
+        ++n;
+        branchCode = "", conditionCode = "";
+    } while (block.getInput('condition_if' + n));
+
+    if (block.getInput('else_ifc')) {
+        var default_block = block.getInputTargetBlock('else_ifc');
+        if (default_block != null)
+            branchCode = addSpaces + Blockly.JavaScript[default_block.type](default_block, spaces + newSpaces);
+        ret += 'else {\n' + branchCode + "\n" + spaces + "}";
+
+    }
+    ret += "\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+
+};
+
+Blockly.JavaScript['scanner'] = function (block, spaces) {
+    var ret = "Scanner " + block.getFieldValue("variable");
+    ret += " = new Scanner(System.in);\n";
+    var nextBlock = block.getNextBlock();
+    if (nextBlock != null)
+        ret += Blockly.JavaScript[nextBlock.type](nextBlock, spaces);
+    return ret;
+}
+
+Blockly.JavaScript['import_scanner'] = function (block, spaces) {
+    var ret = spaces + "import java.util.Scanner;\n";
+    var nextBlock = block.getNextBlock();
+    if (nextBlock != null)
+        ret += spaces + Blockly.JavaScript[nextBlock.type](nextBlock, spaces);
+    return ret;
+}
+
+Blockly.JavaScript['next_scanner'] = function (block, spaces) {
+    var ret = block.getFieldValue("variable");
+    ret += ".";
+    ret += block.getFieldValue("choice");
+    return ret;
+}
+
+Blockly.JavaScript['set_array'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("Type");
+    ret += " [] ";
+    ret += block.getFieldValue("Name");
+    ret += " = ";
+    //ret += Blockly.JavaScript.valueToCode(block, "Number", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+
+    var inblc = block.getInputTargetBlock("Number");
+    if (inblc != null) {
+        ret += Blockly.JavaScript[inblc.type](inblc, "");
+    }
+
+    ret += ";\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+
+    return ret;
+}
+
+Blockly.JavaScript['lists_create_with'] = function (block) {
+    // Create a list with any number of elements of any type.
+    var elements = new Array(block.itemCount_);
+    for (var i = 0; i < block.itemCount_; i++) {
+        elements[i] = Blockly.JavaScript.valueToCode(block, 'ADD' + i,
+            Blockly.JavaScript.ORDER_COMMA) || 'null';
+    }
+    var code = '[' + elements.join(', ') + ']';
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['var'] = function (block, spaces) {
+    var ret = block.getFieldValue("var");
+    return ret;
+};
+
+Blockly.JavaScript['break'] = function (block, spaces) {
+    var ret = "break ;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['continue'] = function (block, spaces) {
+    var ret = "continue ;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['convert'] = function (block, spaces) {
+    var ret = block.getFieldValue("NAME");
+    ret += "("
+    ret += block.getFieldValue("variable");
+    ret += ")"
+    return ret;
+};
+
+Blockly.JavaScript['switch_con'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "switch (";
+    ret += block.getFieldValue("var");
+    ret += ") { \n";
+    var inblc = block.getInputTargetBlock("NAME");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+    ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['scanner'] = function (block, spaces) {
+    var ret = "Scanner ";
+    ret += block.getFieldValue("variable");
+    ret += " = new Scanner(System.in);\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_array2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("NAME1");
+    ret += " [] ";
+    ret += block.getFieldValue("NAME");
+    ret += " =  new ";
+    ret += block.getFieldValue("NAME2");
+    ret += " [";
+    var blc1 = block.getInputTargetBlock("NAME");
+    if (blc1 != null) {
+        ret += Blockly.JavaScript[blc1.type](blc1, "");
+    }
+    ret += "] ;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['array_operation'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("arr");
+    ret += " [";
+    var blc1 = block.getInputTargetBlock("NAME1");
+    if (blc1 != null) {
+        ret += Blockly.JavaScript[blc1.type](blc1, "");
+    }
+    ret += "] ";
+    ret += block.getFieldValue("NAME");
+    ret += " ";
+    var blc2 = block.getInputTargetBlock("NAME2");
+    if (blc2 != null) {
+        ret += Blockly.JavaScript[blc2.type](blc2, "");
+    }
+
+    ret += ";\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['length'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("NAME");
+    ret += ".length";
+    return ret;
+};
+
+Blockly.JavaScript['equals'] = function (block, spaces) {
+    var ret = "";
+    var inblc1 = block.getInputTargetBlock("NAME1");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ".equals(";
+    var inblc2 = block.getInputTargetBlock("NAME2");
+    if (inblc2 != null) {
+        ret += Blockly.JavaScript[inblc2.type](inblc2, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['decimal_format'] = function (block, spaces) {
+    var ret = "DecimalFormat ";
+    ret += block.getFieldValue("var");
+    ret += " = new DecimalFormat (";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['format'] = function (block, spaces) {
+    var ret = "";
+    var inblc1 = block.getInputTargetBlock("NAME1");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ".format(";
+    var inblc2 = block.getInputTargetBlock("NAME2");
+    if (inblc2 != null) {
+        ret += Blockly.JavaScript[inblc2.type](inblc2, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['random_define'] = function (block, spaces) {
+    var ret = "Random ";
+    ret += block.getFieldValue("var");
+    ret += " = new Random();\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['random_define2'] = function (block, spaces) {
+    var ret = "Random ";
+    ret += block.getFieldValue("var");
+    ret += " = new Random(";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_variable2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += " ";
+    ret += block.getFieldValue("Type");
+    ret += " ";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ";\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['next'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += ".";
+    ret += block.getFieldValue("NAME");
+    return ret;
+};
+
+Blockly.JavaScript['not'] = function (block, spaces) {
+    var ret = "!";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    return ret;
+};
+
+Blockly.JavaScript['test_condition'] = function (block, spaces) {
+    var ret = "";
+    ret += "Character.";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['string_functions'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += ".";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['tokenizer_define'] = function (block, spaces) {
+    var ret = "";
+    ret += "StringTokenizer ";
+    ret += block.getFieldValue("var");
+    ret += " = new StringTokenizer(";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['tokenizer_functions'] = function (block, spaces) {
+    var ret = ""
+    ret += block.getFieldValue("var");
+    ret += ".";
+    ret += block.getFieldValue("NAME");
+    return ret;
+};
+
+Blockly.JavaScript['arraylist_define'] = function (block, spaces) {
+    var ret = "ArrayList <";
+    ret += block.getFieldValue("NAME1");
+    ret += "> ";
+    ret += block.getFieldValue("NAME2");
+    ret += " = new ArrayList <";
+    ret += block.getFieldValue("NAME3");
+    ret += "> (";
+    var inblc1 = block.getInputTargetBlock("NAME4");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['arraylist_define2'] = function (block, spaces) {
+    var ret = "ArrayList <";
+    ret += block.getFieldValue("NAME1");
+    ret += "> ";
+    ret += block.getFieldValue("NAME2");
+    ret += " = new ArrayList <";
+    ret += block.getFieldValue("NAME3");
+    ret += "> ();\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['arraylist_functions'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += ".";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ");\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['arraylist_functions2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += ".";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['arraylist_functions3'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += ".";
+    ret += block.getFieldValue("NAME1");
+    return ret;
+};
+
+Blockly.JavaScript['arraylist_clear'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("var");
+    ret += ".clear();\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['math_functions'] = function (block, spaces) {
+    var ret = "";
+    ret += "Math.";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['math_functions2'] = function (block, spaces) {
+    var ret = "";
+    ret += "Math.";
+    ret += block.getFieldValue("NAME");
+    return ret;
+};
+
+Blockly.JavaScript['try_catch'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "try {\n";
+    var inblc1 = block.getInputTargetBlock("NAME1");
+    if (inblc1 != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc1.type](inblc1, addSpaces);
+    }
+    ret += spaces + "}catch ("
+    ret += block.getFieldValue("NAME2");
+    ret += " ";
+    ret += block.getFieldValue("e");
+    ret += ") {\n";
+    var inblc2 = block.getInputTargetBlock("NAME3");
+    if (inblc2 != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc2.type](inblc2, addSpaces);
+    }
+    ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+
+    return ret;
+
+};
+
+Blockly.JavaScript['try_catch_finally'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "try {\n";
+    var inblc1 = block.getInputTargetBlock("NAME1");
+    if (inblc1 != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc1.type](inblc1, addSpaces);
+    }
+    ret += spaces + "}catch (";
+    ret += block.getFieldValue("NAME2");
+    ret += " ";
+    ret += block.getFieldValue("e");
+    ret += ") {\n";
+    var inblc2 = block.getInputTargetBlock("NAME3");
+    if (inblc2 != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc2.type](inblc2, addSpaces);
+    }
+    ret += spaces + "}finally {\n";
+    var inblc3 = block.getInputTargetBlock("NAME4");
+    if (inblc3 != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc3.type](inblc3, addSpaces);
+    }
+    ret += spaces + "}\n";
+
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+
+    return ret;
+
+};
+
+Blockly.JavaScript['error_msg'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("e");
+    ret += ".getMessage()";
+    return ret;
+};
+
+Blockly.JavaScript['new_method'] = function (block, spaces) {
+    var addSpaces = spaces + "  ";
+    var ret = "Public Static ";
+    ret += block.getFieldValue("NAME1");
+    ret += " ";
+    ret += block.getFieldValue("NAME2");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME3");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ") {\n";
+    var inblc = block.getInputTargetBlock("NAME4");
+    if (inblc != null) {
+        ret += addSpaces + Blockly.JavaScript[inblc.type](inblc, addSpaces);
+    }
+    ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+
+    return ret;
+
+};
+
+Blockly.JavaScript['call_method'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ");\n";
+
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['call_method2'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("NAME1");
+    ret += "(";
+    var inblc1 = block.getInputTargetBlock("NAME2");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ")";
+    return ret;
+};
+
+Blockly.JavaScript['return'] = function (block, spaces) {
+    var ret = "";
+    ret += "return ";
+    var inblc1 = block.getInputTargetBlock("NAME");
+    if (inblc1 != null) {
+        ret += Blockly.JavaScript[inblc1.type](inblc1, "");
+    }
+    ret += ";\n";
+
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_math'] = function (block, spaces) {
+    var ret = "import java.lang.Math;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_random'] = function (block, spaces) {
+    var ret = "import java.util.Random;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_scanner'] = function (block, spaces) {
+    var ret = "import java.util.Scanner;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_stringtokenizer'] = function (block, spaces) {
+    var ret = "import java.util.StringTokenizer;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_decimalformat'] = function (block, spaces) {
+    var ret = "import java.text.DecimalFormat;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['define_arraylist'] = function (block, spaces) {
+    var ret = "import java.util.ArrayList;\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += spaces + Blockly.JavaScript[next.type](next, spaces);
+    }
+    return ret;
+};
+
+Blockly.JavaScript['true'] = function (block, spaces) {
+    var ret = "true";
+    return ret;
+};
+
+Blockly.JavaScript['false'] = function (block, spaces) {
+    var ret = "false";
+    return ret;
+};
+
+Blockly.JavaScript['string'] = function (block, spaces) {
+    var ret = "";
+    ret += "\"";
+    ret += block.getFieldValue("NAME");
+    ret += "\"";
+    return ret;
+};
+
+Blockly.JavaScript['num'] = function (block, spaces) {
+    var ret = "";
+    ret += block.getFieldValue("NAME");
+    return ret;
+};
+
+Blockly.JavaScript['array'] = function (a) {
+    for (var b = Array(a.itemCount_), c = 0; c < a.itemCount_; c++) {
+        var inblc1 = a.getInputTargetBlock("ADD" + c);
+        if (inblc1 != null) {
+            b[c] = Blockly.JavaScript[inblc1.type](inblc1, "");
+        }
+    }
+    b = "{" + b.join(" , ") + "}";
+    return [b]
+};
+
+Blockly.JavaScript['multi1'] = function (a) {
+    for (var b = Array(a.itemCount_), c = 0; c < a.itemCount_; c++) {
+        if (c == 0) {
+            var inblc1 = a.getInputTargetBlock("ADD" + c);
+            if (inblc1 != null) {
+                b[c] = Blockly.JavaScript[inblc1.type](inblc1, "");
+            }
+        } else {
+            b[c] = (a.getFieldValue("NAME" + c) + " ");
+            var inblc1 = a.getInputTargetBlock("ADD" + c);
+            if (inblc1 != null) {
+                b[c] += Blockly.JavaScript[inblc1.type](inblc1, "");
+            }
+        }
+    }
+    b = b.join(" ");
+    return [b]
+};
+
+Blockly.JavaScript['multi2'] = function (a) {
+    for (var b = Array(a.itemCount_), c = 0; c < a.itemCount_; c++) {
+        if (c == 0) {
+            var inblc1 = a.getInputTargetBlock("ADD" + c);
+            if (inblc1 != null) {
+                b[c] = Blockly.JavaScript[inblc1.type](inblc1, "");
+            }
+        } else {
+            b[c] = (a.getFieldValue("NAME" + c) + " ");
+            var inblc1 = a.getInputTargetBlock("ADD" + c);
+            if (inblc1 != null) {
+                b[c] += Blockly.JavaScript[inblc1.type](inblc1, "");
+            }
+        }
+    }
+    b = "(" + b.join(" ") + ")";
+    return [b]
+};
+
+Blockly.JavaScript['multi3'] = function (a) {
+    for (var b = Array(a.itemCount_), c = 0; c < a.itemCount_; c++) {
+        var inblc1 = a.getInputTargetBlock("ADD" + c);
+        if (inblc1 != null) {
+            b[c] = Blockly.JavaScript[inblc1.type](inblc1, "");
+        }
+    }
+    b = b.join(" , ");
+    return [b]
+};
+
+function waitForIt(block) {
+    if (isPaused) {
+        setTimeout(function () {
+            waitForIt(block)
+        }, 50);
+    } else {
+        Blockly.JavaScript[block.type](block);
+        isPaused = true;
+    }
+}
+
+Blockly.JavaScript['turnjs'] = function (block) {
+    isRun=true;
+    var next = block.getNextBlock();
+    if (block.getFieldValue("Type") == "Right" && (parseInt(elem.style.top) == 5 && parseInt(elem.style.left) == 305))
+        down(next);
+    else{checkwrong=false; isDone();} 
+};
+
+Blockly.JavaScript['turn'] = function (block, spaces) {
+   var ret = "OUTPUT += '"+block.getFieldValue("Type")+"-' ; \n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret +=  Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+Blockly.JavaScript['move'] = function (block, spaces) {
+   var ret = "OUTPUT += '"+block.getFieldValue("Type")+"-' ; \n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret +=  Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+var index = 0,
+    index2 = 0;
+
+Blockly.JavaScript['repeatjs'] = function (block) {
+    isRun=true;
+    var iter = Blockly.JavaScript.valueToCode(block, "Number", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+    var stat = block.getInputTargetBlock("statment");
+    if (stat != null) {
+        for (var i = 0; i < parseInt(iter); i++) {
+            console.log(isPaused);
+            waitForIt(stat);
+        }
+    }
+    if (block.getNextBlock() != null) {
+        waitForIt(block.getNextBlock());
+    }
+}
+
+Blockly.JavaScript['move_forwardjs'] = function (block) {
+    if ((parseInt(elem.style.top) == 5 && parseInt(elem.style.left) < 305) || (parseInt(elem.style.left) == 375 && parseInt(elem.style.top) < 345)) {
+        var next = block.getNextBlock();
+        left(next);
+    } else {
+        checkwrong=false;
+    }
+};
+
+	
+Blockly.JavaScript['repeat'] = function (block, spaces){
+	var ret = spaces + "for(var i"+index+"=0;i"+index+"<";
+	ret += Blockly.JavaScript.valueToCode(block, "Number", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+  	ret +=  ";i"+index+++"++){\n";
+	var x = block.getInputTargetBlock("statment");
+	ret += Blockly.JavaScript[x.type](x, spaces);
+	ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += Blockly.JavaScript[next.type](next, spaces);
+    }
+	return ret;
+};
+
+
+Blockly.JavaScript['move_forward'] = function (block, spaces) {
+  var ret = "OUTPUT += 'forward-' ; \n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret += Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+Blockly.JavaScript['be_Invisible'] = function (block, spaces) {
+  var ret = "OUTPUT += 'Invisible-' ; \n";
+    var next = block.getNextBlock();
+    if (next != null)
+        ret += Blockly.JavaScript[next.type](next, spaces);
+    return ret;
+};
+
+Blockly.JavaScript['if_do'] = function (block) {
+    var x = block.getFieldValue('NAME');
+    var isExecute;
+    if (x == "ahead" && ((parseInt(elem.style.top) == 5 && parseInt(elem.style.left) < 305) || (parseInt(elem.style.left) == 375 && parseInt(elem.style.top) < 345)))
+        isExecute = true;
+    else if (x == "right" && (parseInt(elem.style.top) == 5 && parseInt(elem.style.left) == 305)) {
+        isExecute = true;
+    } else if (x == "left") {
+        isExecute = false;
+    }
+    if (isExecute) {
+        var child = block.getInputTargetBlock("STATEMENT");
+        if (child != null) {
+            waitForIt(child);
+        }
+
+    }
+    if (block.getNextBlock() != null) {
+        waitForIt(block.getNextBlock());
+    }
+}
+
+Blockly.JavaScript['repeat_until'] = function (block, spaces){
+	var ret = spaces + "for(var i"+index2+"=0;i"+index2+"<";
+	ret += "3";
+  	ret +=  ";i"+index2+++"++){\n";
+	var children = block.getChildren();
+    for (var i = 0; i < children.length; i++) {
+        if (InputBlock[children[i].type] != 1) {
+            if (block.getNextBlock() == null || (children[i].id != block.getNextBlock().id)) {
+                ret += Blockly.JavaScript[children[i].type](children[i], spaces + "  ") ;
+            }
+        }
+    }
+	ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += Blockly.JavaScript[next.type](next, spaces);
+    }
+	return ret;
+};
+
+Blockly.JavaScript['repeat_untilcar'] = function (block, spaces){
+	var ret = spaces + "for(var i"+index2+"=0;i"+index2+"<";
+	ret += "3";
+  	ret +=  ";i"+index2+++"++){\n";
+	var children = block.getChildren();
+    for (var i = 0; i < children.length; i++) {
+        if (InputBlock[children[i].type] != 1) {
+            if (block.getNextBlock() == null || (children[i].id != block.getNextBlock().id)) {
+                ret += Blockly.JavaScript[children[i].type](children[i], spaces + "  ") ;
+            }
+        }
+    }
+	ret += spaces + "}\n";
+    if (block.getNextBlock() != null) {
+        var next = block.getNextBlock();
+        ret += Blockly.JavaScript[next.type](next, spaces);
+    }
+	return ret;
+};

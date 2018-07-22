@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Dialog - Modal form</title>
+   <!---<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <link rel="stylesheet" href="jquery-ui.css">
+    <script src="jquery-3.1.0.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+  
+    
+   <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+ <script src="jquery-3.1.0.min.js"></script> -->
+    
+  <style>
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    div#users-contain { width: 350px; margin: 20px 0; }
+    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+	body {
+    margin: 0;
+}
+
+#cats {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    background-color: #f1f1f1;
+    height: 100%;
+    overflow: auto;
+    
+    float: left;
+}
+ 
+    .blocksImages
+        { list-style: none; }
+    .blocksImages li 
+        { display: inline; } 
+    .blocksImages li img 
+        { border: 2px solid white; cursor: pointer; }
+    .blocksImages li img:hover,
+    .blocksImages li img.hover
+        { border: 1px solid black; }
+      
+    .blocksImages li img.select
+        { border: 2px solid green; }
+      
+      .galImages{
+    
+          height:120px;
+          
+      }
+      #cats{
+      text-align: center;
+      }
+      .stylecats{
+        margin: auto;
+        padding: 10px;
+          font-size: 25px;
+        
+      }
+      .stylecats:hover{
+           background-color:darkgray;
+          color: white;
+          
+        }
+
+  </style>
+
+<!--
+li {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+li hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+   -->      
+
+</head>
+<body>
+<div id="dialog-form" title="Pick Blocks"> 
+  <form>
+    <fieldset>
+      <div id="container">
+       <div>
+			<div id="cats">
+			  <div class="stylecats" id="cat0" value="<block type='Main_Class.PNG'><block>">Home</div>
+			  <div class="stylecats" id="cat1">News</div>
+			  <div class="stylecats" id="cat2">Contact</div>
+			  <div class="stylecats" id="cat3">About</div>
+			</div>
+	   </div>
+        <div id="contents">
+            <div style="margin-left:25%;padding:1px 16px;height:400px; overflow-y:scroll; display:none;" id="cont0" >
+             <ul class="blocksImages" id="ifcat">
+                <li><img class='galImages' value="<block type='Main_Class'><block>" src='img/Main_Class.PNG' id="d"/></li>
+                <li><img class='galImages' value="<block type='main_method'><block>" src='img/main_method.PNG' id="d2"/></li>
+                <li><img class='galImages' value="<block type='Set_Number'><block>" src='img/Set_Number.PNG'id="d3"/></li>
+                 <li><img class='galImages' value="<block type='Set_Boolean'><block>" src='img/Set_Boolean.PNG'id="d4"/></li>
+                 <li><img class='galImages' value="<block type='For_Loop'><block>" src='img/For_Loop.PNG' id="d4"/></li>
+                <li><img class='galImages' value="<block type='For_Initialization_value'><block>" src='img/For_Initialization_value.PNG' id="d5"/></li>
+                <li><img class='galImages' value="<block type='condition_block'><block>" src='img/condition_block.PNG' id="d5"/></li>
+                <li><img class='galImages' value="<block type='For_Iteration'><block>" src='img/For_Iteration.PNG' id="d5"/></li>
+                 <li><img class='galImages' value="<block type='For_Iteration2'><block>" src='img/For_Iteration2.PNG' id="d5"/></li>
+                 <li><img class='galImages' value="<block type='While_Loop'><block>" src='img/While_Loop.PNG' id="d5"/></li>
+             </ul>
+            </div>
+            <div style="margin-left:25%;padding:1px 16px;height:400px;  display:none;" id="cont1" >
+                 <ul class="blocksImages">
+                <li><img class='galImages' src='Capture.PNG' id="f"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="f1"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="f2"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="f3"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="f4"/></li>
+             </ul>
+            </div>
+            <div style="margin-left:25%;padding:1px 16px;height:400px; display:none;" id="cont2" >
+                <ul class="blocksImages">
+                <li><img class='galImages' src='Capture.PNG' id="s"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="s1"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="s2"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="s3"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="s4"/></li>
+             </ul>
+            </div>
+            <div style="margin-left:25%;padding:1px 16px;height:400px;  display:none;" id="cont3" >
+                 <ul class="blocksImages">
+                <li><img class='galImages' src='Capture.PNG' id="a"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="a1"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="a2"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="a3"/></li>
+                <li><img class='galImages' src='Capture.PNG'id="a4"/></li>
+             </ul>
+            </div>
+        </div>
+       </div>
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
+    </fieldset>
+  </form>
+</div>
+ 
+ <textarea id="xml" ></textarea>
+<div id="users-contain" class="ui-widget">
+  
+</div>
+<button id="create-user" onclick="nn()">Create new user</button>
+ 
+      <script>
+          
+function nn(){
+    document.getElementById("cat0").style.cursor="pointer";
+    document.getElementById("cat1").style.cursor="pointer";
+    document.getElementById("cat2").style.cursor="pointer";
+    document.getElementById("cat3").style.cursor="pointer";
+}
+  $( function() {
+    var dialog, form,array =[];
+    function Select() {
+    array =[];
+    var imgs = $("img.select");
+    var ifcat=[];
+    for(i=0;i<imgs.length;i++){
+         array[i]=imgs[i].id;
+         if(imgs[i].parentNode.parentNode.id=="ifcat"){
+             ifcat.push(imgs[i].getAttribute('value'));
+         }
+    }
+    var blockxml='<xml id="toolbox" style="display: none">'
+        if(ifcat.length>0){
+            blockxml+= '<category name="Logic">';
+            for(var i=0;i<ifcat.length;i++)
+                blockxml+=ifcat[i];
+            blockxml+= '</category>';
+            }
+        blockxml+="<xml>";
+        document.getElementById("xml").innerHTML=blockxml;
+        dialog.dialog( "close" );
+  } 
+      function ClearAll(){
+          var ContentID;
+          for(var i=0;i<4;i++)
+            if(document.getElementById("cont"+i).style.display!="none")
+                ContentID=i;
+          var children=document.getElementById("cont"+ContentID).getElementsByClassName("galImages");          
+          for(var i=0;i<children.length;i++)
+              children[i].classList.remove("select");
+      }
+      function SelectAll(){
+          var ContentID;
+          for(var i=0;i<4;i++)
+            if(document.getElementById("cont"+i).style.display!="none")
+                ContentID=i;
+          var children=document.getElementById("cont"+ContentID).getElementsByClassName("galImages");          
+          for(var i=0;i<children.length;i++)
+              children[i].classList.add("select");
+      }
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 600,
+      width: 1200,
+      modal: true,
+      buttons: {
+        "OK": Select,
+        "Clear All": ClearAll,
+        "Select All": SelectAll,
+      },
+      close: function() {
+        form[ 0 ].reset();
+      }
+    });
+ 
+    form = dialog.find( "form" ).on( "submit", function( event ) {
+    });
+ 
+    $( "#create-user" ).button().on( "click", function() {
+      dialog.dialog( "open" );
+    });
+  } );
+          
+        document.getElementById("cont0").style.display="block";
+        var cats = document.getElementById("cats").children;
+        for(var i=0;i<cats.length;i++){
+            cats[i].addEventListener("click", function(event){
+                var catId=event.target.id;
+                var parentCat=document.getElementById("contents");
+                var allContent=parentCat.children;
+                for(var j =0;j<allContent.length;j++)
+                    allContent[j].style.display="none";
+                document.getElementById(catId.replace("cat","cont")).style.display="block";
+            });
+        }  
+          $(document).ready(function() { 
+              $(".galImages").click(function() {      
+                $(this).toggleClass("select");
+              });
+
+
+          });
+  </script>
+ 
+</body>
+    
+    
+</html> 

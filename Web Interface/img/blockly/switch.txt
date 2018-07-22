@@ -1,0 +1,6 @@
+<block type="switch_con">
+            <field name="variable">variable</field>
+            <statement name="NAME">
+                <block type="switch"></block>
+            </statement>
+        </block>

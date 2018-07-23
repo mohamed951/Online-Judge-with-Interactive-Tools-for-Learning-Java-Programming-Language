@@ -24,6 +24,8 @@ Java.
 
 ## **• Games:**
 
+![alt text](https://github.com/mohamed951/Online-Judge-with-Interactive-Tools-for-Learning-Java-Programming-Language/blob/master/Web%20Interface/img/howto/sc6.png)
+
 The students drag and connect the ‘Blocks’ (hence ‘Blockly’), which are
 basically pre-programmed pieces of code, to set the path of their
 character. Once you think you’ve planned out the program correctly
@@ -33,6 +35,8 @@ Helps to understand the constants and fundamentals of programming by
 having aproblem.
 
 ## **• Text Problem Solved by Blockly:**
+
+![alt text](https://github.com/mohamed951/Online-Judge-with-Interactive-Tools-for-Learning-Java-Programming-Language/blob/master/Web%20Interface/img/howto/sc1.png)
 
 Problem as a text statement the student should read it and try to find the idea of
 the solution then solve it by pick up Java blockly blocks and link it together while
@@ -44,10 +48,14 @@ Exceed..,etc.
 
 ## **• Text Problem:**
 
+![alt text](https://github.com/mohamed951/Online-Judge-with-Interactive-Tools-for-Learning-Java-Programming-Language/blob/master/Web%20Interface/img/howto/sc3.png)
+
 Same as Text Problem Solved by Blockly, but the student should write his own
 code instead of picking up blocks that generate the intended code
 
 ## **• Expect The output of the code:**
+
+![alt text](https://github.com/mohamed951/Online-Judge-with-Interactive-Tools-for-Learning-Java-Programming-Language/blob/master/Web%20Interface/img/howto/sc2.png)
 
 In this problem the student will have a correct code and should trace it and expect
 the output should the code produce.
@@ -56,7 +64,11 @@ the output should the code produce.
 We provide problems that's consist of a code has syntax error and the user should identify all error in limited number
 of tries.
 
+![alt text](https://github.com/mohamed951/Online-Judge-with-Interactive-Tools-for-Learning-Java-Programming-Language/blob/master/Web%20Interface/img/howto/sc4.png)
+
 ## **• Tutorials:**
+
+![alt text](https://github.com/mohamed951/Online-Judge-with-Interactive-Tools-for-Learning-Java-Programming-Language/blob/master/Web%20Interface/img/howto/sc5.png)
 
 Tutorial prepared for the beginners to help them understand the basic to
 advanced concepts related to Java Programming language before start

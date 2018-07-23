@@ -90,3 +90,6 @@ Aurora online judge.
       file contain the output of all test cases according to add new problem.This technique will make students 
       especially the beginners confused, so we update this technique making judge test all the test cases without 
       enforce the student to add loop to run all the test cases.
+
+## Setup Guide
+Follow Aurora [Setup Guide](https://github.com/pushkar8723/Aurora/wiki/Setup-Guide), Then replace Web Interface files,Judge,Database With ours.

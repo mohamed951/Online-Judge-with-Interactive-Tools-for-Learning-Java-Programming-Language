@@ -92,4 +92,4 @@ Aurora online judge.
       enforce the student to add loop to run all the test cases.
 
 ## Setup Guide
-Follow Aurora [Setup Guide](https://github.com/pushkar8723/Aurora/wiki/Setup-Guide), Then replace Web Interface files,Judge,Database With ours.
+Setup Aurora Online Judge using the [Setup Guide](https://github.com/pushkar8723/Aurora/wiki/Setup-Guide) and [FAQ](https://github.com/pushkar8723/Aurora/wiki/FAQ) Then replace Web Interface files,Judge.py,Database With ours.
